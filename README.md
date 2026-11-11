@@ -31,14 +31,17 @@ Answer: Answer not found in the papers.      (refused in under 1 second)
 
 Tested on 38 hand-written questions over 5 papers: 29 about one paper, 4 comparing papers, and 5 that the papers can't answer (the right response is to refuse).
 
-| Metric | Before | After |
+- **Basic RAG** = the starting version: plain PDF text, meaning-based search only, no reranker, no guard.
+- **MultiRAG** = the final version with all improvements.
+
+| Metric | Basic RAG (starting version) | MultiRAG (final) |
 |---|---|---|
 | Correct page ranked first | 33% | **52%** |
 | Correct page in the top 3 (what the LLM reads) | 70% | **82%** |
 | Comparison questions: every named paper found | 79% | **100%** |
 | Fully correct answers | 36% | **55%** |
 | Answers citing the correct page | 52% | **62%** |
-| Made-up answers to unanswerable questions | 40% | **20%** |
+| Made-up answers to unanswerable questions (lower is better) | 40% | **20%** |
 
 The hallucination guard removed **0 correct answers**, blocked **6 wrong answers** (invented numbers or model names), and blocked **2 made-up answers** to unanswerable questions.
 
