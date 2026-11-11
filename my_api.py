@@ -2,11 +2,8 @@ import time
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from configure import EMBEDDING_MODEL, VECTORSTORE_DIR, TOP_K
-from embeddings.embedder import Embedder
-from vectorestore.faiss_store import FAISSStore
-from retrival.retreiver import Retriever
-from LLM.generator import generate_answer
+from configure import TOP_K
+from main import create_rag as build_retriever, answer_question
 from logs.logger_config import setup_logger
 
 
@@ -28,18 +25,13 @@ def create_rag():
 
     logger.info("Initializing RAG system")
 
-    embedder = Embedder(EMBEDDING_MODEL)
-
-    store = FAISSStore(embedder.dimension)
-    store.load(VECTORSTORE_DIR)
+    retriever = build_retriever()
 
     logger.info(
-        f"Vector store loaded: {store.index.ntotal} vectors"
-    )
-
-    retriever = Retriever(
-        embedder,
-        store
+        f"Vector store loaded: "
+        f"{retriever.vectorstore.index.ntotal} vectors, "
+        f"mode={retriever.mode}, "
+        f"reranker={'on' if retriever.reranker else 'off'}"
     )
 
     logger.info("RAG system initialized successfully")
@@ -74,26 +66,24 @@ def ask_question(request: QueryRequest):
 
     try:
 
-        # Retrieve relevant chunks
-        results = retriever.retrieve(
+        # Retrieve -> evidence gate -> generate -> answer check
+        output = answer_question(
+            retriever,
             question,
             top_k=TOP_K
         )
 
-        logger.info(
-            f"Retrieved {len(results)} chunks"
-        )
+        guard = output["guard"]
 
-        # Generate answer
-        answer = generate_answer(
-            question,
-            results
+        logger.info(
+            f"Retrieved {len(output['results'])} chunks, "
+            f"guard={guard.get('reason', 'off')}"
         )
 
         # Sources
         sources = []
 
-        for result in results:
+        for result in output["results"]:
 
             sources.append({
                 "source": result.get(
@@ -111,8 +101,13 @@ def ask_question(request: QueryRequest):
 
         return {
             "question": question,
-            "answer": answer,
+            "answer": output["answer"],
             "sources": sources,
+            "guard": {
+                "refused": guard.get("refused", False),
+                "reason": guard.get("reason"),
+                "best_rerank_score": guard.get("best_rerank_score")
+            },
             "latency_seconds": round(latency, 2)
         }
 

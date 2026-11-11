@@ -1,0 +1,27 @@
+{
+  "rag_lewis2020.pdf": {
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "short": "RAG (Lewis et al., 2020)",
+    "aliases": ["RAG", "RAG-Sequence", "RAG-Token", "Retrieval-Augmented Generation", "Lewis et al"]
+  },
+  "realm_guu2020.pdf": {
+    "title": "REALM: Retrieval-Augmented Language Model Pre-Training",
+    "short": "REALM (Guu et al., 2020)",
+    "aliases": ["REALM", "Guu et al"]
+  },
+  "dpr_karpukhin2020.pdf": {
+    "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+    "short": "DPR (Karpukhin et al., 2020)",
+    "aliases": ["DPR", "Dense Passage Retrieval", "Dense Passage Retriever", "Karpukhin et al"]
+  },
+  "fid_izacard2021.pdf": {
+    "title": "Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering",
+    "short": "Fusion-in-Decoder (Izacard & Grave, 2021)",
+    "aliases": ["Fusion-in-Decoder", "FiD", "Izacard"]
+  },
+  "selfrag_asai2023.pdf": {
+    "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+    "short": "Self-RAG (Asai et al., 2023)",
+    "aliases": ["Self-RAG", "SELF-RAG", "SelfRAG", "Asai et al"]
+  }
+}

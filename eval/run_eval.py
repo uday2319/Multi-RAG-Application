@@ -145,20 +145,47 @@ def summarize(rows):
         retrieval[f"cross_paper_cov@{k}"] = avg(cross, f"paper_cov@{k}")
     summary["retrieval"] = retrieval
 
-    if rows and "refused" in rows[0]["metrics"]:
-        summary["generation"] = {
-            "answer_score": avg(answerable, "answer_score"),
-            "answer_correct": avg(answerable, "answer_correct"),
-            "cross_answer_correct": avg(cross, "answer_correct"),
-            "cited_rate": avg(answerable, "cited"),
-            "citation_gold": avg(answerable, "citation_gold"),
-            "citation_grounded": avg(answerable, "citation_grounded"),
-            "false_refusal_rate": avg(answerable, "refused"),
-            "correct_refusal_rate": avg(unanswerable, "refused"),
+    def generation(prefix):
+        refusal = avg(unanswerable, f"{prefix}refused")
+        return {
+            "answer_score": avg(answerable, f"{prefix}answer_score"),
+            "answer_correct": avg(answerable, f"{prefix}answer_correct"),
+            "cross_answer_correct": avg(cross, f"{prefix}answer_correct"),
+            "cited_rate": avg(answerable, f"{prefix}cited"),
+            "citation_gold": avg(answerable, f"{prefix}citation_gold"),
+            "citation_grounded": avg(answerable, f"{prefix}citation_grounded"),
+            "false_refusal_rate": avg(answerable, f"{prefix}refused"),
+            "correct_refusal_rate": refusal,
             "hallucination_rate_unanswerable": (
-                1 - avg(unanswerable, "refused") if unanswerable else None
+                1 - refusal if refusal is not None else None
             ),
-            "avg_latency_s": mean(r["latency_s"] for r in rows),
+        }
+
+    if rows and "refused" in rows[0]["metrics"]:
+        summary["generation"] = generation("")
+        summary["generation"]["avg_latency_s"] = mean(r["latency_s"] for r in rows)
+
+    if rows and "raw_refused" in rows[0]["metrics"]:
+        summary["generation_raw"] = generation("raw_")
+
+        # The guard's trade-off in plain counts (answerable questions)
+        summary["guard_effect"] = {
+            "correct_answers_removed": sum(
+                1 for r in answerable
+                if r["metrics"].get("raw_answer_correct") == 1
+                and r["metrics"].get("answer_correct") == 0
+            ),
+            "wrong_answers_blocked": sum(
+                1 for r in answerable
+                if r["metrics"].get("raw_answer_correct") == 0
+                and r["metrics"].get("raw_refused") == 0
+                and r["metrics"].get("refused") == 1
+            ),
+            "unanswerable_hallucinations_blocked": sum(
+                1 for r in unanswerable
+                if r["metrics"].get("raw_refused") == 0
+                and r["metrics"].get("refused") == 1
+            ),
         }
 
     return summary
@@ -177,7 +204,22 @@ def format_summary(summary, label):
     for key, value in summary["retrieval"].items():
         lines.append(f"| {key} | {fmt(value)} |")
 
-    if "generation" in summary:
+    if "generation" in summary and "generation_raw" in summary:
+        lines.append("")
+        lines.append("| Generation metric | Raw LLM | With guard |")
+        lines.append("|---|---|---|")
+        for key, value in summary["generation"].items():
+            raw = summary["generation_raw"].get(key)
+            lines.append(f"| {key} | {fmt(raw)} | {fmt(value)} |")
+
+        if "guard_effect" in summary:
+            lines.append("")
+            lines.append("| Guard effect | Count |")
+            lines.append("|---|---|")
+            for key, value in summary["guard_effect"].items():
+                lines.append(f"| {key} | {value} |")
+
+    elif "generation" in summary:
         lines.append("")
         lines.append("| Generation metric | Value |")
         lines.append("|---|---|")
@@ -185,6 +227,54 @@ def format_summary(summary, label):
             lines.append(f"| {key} | {fmt(value)} |")
 
     return "\n".join(lines)
+
+
+def apply_guard(row, question, raw_answer, used):
+    """Run the hallucination guard on a raw answer; store the result in row."""
+
+    from LLM.generator import NOT_FOUND
+    from LLM.guard import evidence_gate, verify_answer
+
+    gate_passed, best_score = evidence_gate(used)
+
+    if gate_passed:
+        check = verify_answer(question, raw_answer, used)
+        row["answer"] = check["answer"]
+        row["guard_reason"] = check["reason"]
+    else:
+        row["answer"] = NOT_FOUND
+        row["guard_reason"] = "weak_evidence"
+
+    row["best_rerank_score"] = best_score
+
+
+def reguard(path, items, retriever):
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    by_id = {item["id"]: item for item in items}
+
+    for row in data["rows"]:
+
+        if "raw_answer" not in row:
+            continue
+
+        item = by_id[row["id"]]
+
+        results = retriever.retrieve(item["question"], top_k=max(K_VALUES))
+        used = results[:data["top_k"]]
+
+        apply_guard(row, item["question"], row["raw_answer"], used)
+
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_path = RESULTS_DIR / f"{stamp}_{data['label']}_reguard.json"
+
+    data["label"] = data["label"] + "_reguard"
+    out_path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+    rescore(out_path, items)
 
 
 def rescore(path, items):
@@ -199,14 +289,16 @@ def rescore(path, items):
 
         metrics = retrieval_metrics(results, item)
 
+        used = results[:data["top_k"]]
+
         if "answer" in row:
-            metrics.update(
-                answer_metrics(
-                    row["answer"],
-                    item,
-                    results[:data["top_k"]]
-                )
-            )
+            metrics.update(answer_metrics(row["answer"], item, used))
+
+        if "raw_answer" in row:
+            metrics.update({
+                f"raw_{key}": value
+                for key, value in answer_metrics(row["raw_answer"], item, used).items()
+            })
 
         row["metrics"] = metrics
 
@@ -228,6 +320,23 @@ def main():
     parser.add_argument("--retrieval-only", action="store_true")
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument(
+        "--mode", choices=["dense", "hybrid"],
+        help="Override RETRIEVAL_MODE from configure.py"
+    )
+    parser.add_argument(
+        "--no-rerank", action="store_true",
+        help="Disable the cross-encoder reranker"
+    )
+    parser.add_argument(
+        "--routing", choices=["off", "multi", "all"],
+        help="Override PAPER_ROUTING from configure.py"
+    )
+    parser.add_argument(
+        "--reguard",
+        help="Re-apply the (changed) guard to the raw answers in a "
+             "saved results file: re-runs retrieval, not the LLM"
+    )
+    parser.add_argument(
         "--rescore",
         help="Re-score a saved results file against the current "
              "golden set without re-running retrieval or the LLM"
@@ -239,10 +348,22 @@ def main():
     if args.rescore:
         rescore(Path(args.rescore), items)
         return
+
+    rag_kwargs = {}
+    if args.mode:
+        rag_kwargs["mode"] = args.mode
+    if args.no_rerank:
+        rag_kwargs["reranker_model"] = None
+    if args.routing:
+        rag_kwargs["routing"] = args.routing
     if args.limit:
         items = items[:args.limit]
 
-    retriever = create_rag()
+    retriever = create_rag(**rag_kwargs)
+
+    if args.reguard:
+        reguard(Path(args.reguard), items, retriever)
+        return
 
     generate_answer = None
     if not args.retrieval_only:
@@ -272,16 +393,35 @@ def main():
                 {
                     "source": r["source"],
                     "page": r["page"],
-                    "score": round(r["score"], 4)
+                    "score": round(r["score"], 4),
+                    "dense_score": (
+                        round(r["dense_score"], 4)
+                        if r.get("dense_score") is not None else None
+                    ),
+                    "rerank_score": (
+                        round(r["rerank_score"], 4)
+                        if r.get("rerank_score") is not None else None
+                    )
                 }
                 for r in results
             ],
         }
 
         if generate_answer:
-            answer = generate_answer(item["question"], used)
-            row["answer"] = answer
-            metrics.update(answer_metrics(answer, item, used))
+
+            # Raw LLM answer (no guard). Generated even when the
+            # evidence gate would refuse, so the guard's effect can
+            # be measured on the same run.
+            raw_answer = generate_answer(item["question"], used)
+            row["raw_answer"] = raw_answer
+
+            apply_guard(row, item["question"], raw_answer, used)
+
+            metrics.update(answer_metrics(row["answer"], item, used))
+            metrics.update({
+                f"raw_{key}": value
+                for key, value in answer_metrics(raw_answer, item, used).items()
+            })
 
         row["metrics"] = metrics
         row["latency_s"] = round(time.time() - start, 2)

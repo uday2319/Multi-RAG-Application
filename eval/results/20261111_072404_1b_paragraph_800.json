@@ -1,0 +1,2512 @@
+{
+  "label": "1b_paragraph_800",
+  "timestamp": "20261111_072404",
+  "top_k": 3,
+  "summary": {
+    "counts": {
+      "total": 38,
+      "answerable": 33,
+      "cross": 4,
+      "unanswerable": 5
+    },
+    "retrieval": {
+      "hit@1": 0.30303030303030304,
+      "hit@3": 0.7272727272727273,
+      "hit@5": 0.7878787878787878,
+      "hit@10": 0.8484848484848485,
+      "mrr": 0.505050505050505,
+      "cross_paper_cov@1": 0.4583333333333333,
+      "cross_paper_cov@3": 0.6666666666666666,
+      "cross_paper_cov@5": 0.7916666666666666,
+      "cross_paper_cov@10": 0.875
+    }
+  },
+  "rows": [
+    {
+      "id": "rag-1",
+      "type": "single",
+      "question": "What is the difference between the RAG-Sequence and RAG-Token models?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.6941
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.6026
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5779
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.5446
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.5394
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.5374
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.5247
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.5046
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.4758
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.4747
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.03
+    },
+    {
+      "id": "rag-2",
+      "type": "single",
+      "question": "Which pre-trained model does RAG use as its generator?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.6602
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5816
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.552
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.5454
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5321
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.5226
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.5185
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 10,
+          "score": 0.5057
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 9,
+          "score": 0.5007
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.494
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "rag-3",
+      "type": "single",
+      "question": "How many documents are in RAG's Wikipedia index and how were they created?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.5608
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.551
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 20,
+          "score": 0.5461
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5338
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.5308
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.5102
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4969
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.4898
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.4638
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.4632
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "rag-4",
+      "type": "single",
+      "question": "Which library does RAG use to build its MIPS document index?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.4788
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4728
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4639
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4383
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4375
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.4296
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.4257
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 4,
+          "score": 0.4228
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.416
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 5,
+          "score": 0.4141
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "rag-5",
+      "type": "single",
+      "question": "How is the RAG retriever initialized?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.4992
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.4744
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4645
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4636
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.4174
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4127
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.4056
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.3967
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 20,
+          "score": 0.3763
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 16,
+          "score": 0.3722
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.25
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "rag-6",
+      "type": "single",
+      "question": "How did the RAG paper demonstrate updating the model's knowledge by swapping the index?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.6004
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.5077
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4814
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 19,
+          "score": 0.4556
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4421
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.4294
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4265
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.4163
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4052
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.3963
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "rag-7",
+      "type": "single",
+      "question": "Compared to BART, do RAG models hallucinate more or less?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.5365
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.5216
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.4713
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.4258
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.3985
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 9,
+          "score": 0.3782
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.3691
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.3598
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.3515
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.3507
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "realm-1",
+      "type": "single",
+      "question": "What masking strategy does REALM use during pre-training?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.6529
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.6015
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.5469
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.5351
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4809
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.475
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4666
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 4,
+          "score": 0.4588
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.4561
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4485
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "realm-2",
+      "type": "single",
+      "question": "How does REALM keep its MIPS index up to date during pre-training?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.6738
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.6285
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 6,
+          "score": 0.5626
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.5411
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.5372
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.5368
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.503
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 12,
+          "score": 0.4795
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.4779
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 12,
+          "score": 0.4608
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "realm-3",
+      "type": "single",
+      "question": "Which task is used to warm-start REALM's retriever?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.5895
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.5489
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.5251
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.5171
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4989
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.4808
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 2,
+          "score": 0.4621
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4505
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 2,
+          "score": 0.4499
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4354
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "realm-4",
+      "type": "single",
+      "question": "What NaturalQuestions-Open accuracy does REALM reach when pre-trained on CC-News?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.6526
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.6475
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.6151
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 2,
+          "score": 0.6021
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 12,
+          "score": 0.5959
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.5954
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.5889
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.586
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 12,
+          "score": 0.5811
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.5803
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "realm-5",
+      "type": "single",
+      "question": "What are the two main components of REALM?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.5568
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.4971
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4915
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 2,
+          "score": 0.468
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.4606
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4595
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4594
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 2,
+          "score": 0.4545
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.4325
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 11,
+          "score": 0.4268
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "dpr-1",
+      "type": "single",
+      "question": "What network does DPR use for its question and passage encoders?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 3,
+          "score": 0.5497
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5299
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.523
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 13,
+          "score": 0.5025
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.4933
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.4853
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4796
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.4477
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.4452
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 9,
+          "score": 0.4405
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "dpr-2",
+      "type": "single",
+      "question": "What training trick does DPR use to reuse other questions' passages as negatives?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.6102
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 9,
+          "score": 0.5981
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.596
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.5815
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.5725
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.5686
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.5477
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.543
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.5295
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.5212
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 1.0,
+        "mrr": 0.16666666666666666
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "dpr-3",
+      "type": "single",
+      "question": "What top-20 retrieval accuracy do DPR and BM25 get on Natural Questions?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.7013
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.6793
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.6587
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.6562
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.6432
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.6337
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.6324
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.6088
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.6058
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.5915
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "dpr-4",
+      "type": "single",
+      "question": "How long does it take DPR to build the FAISS index over 21 million passages?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.5267
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.4435
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.4363
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.4207
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4011
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 5,
+          "score": 0.3792
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.3663
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 9,
+          "score": 0.3604
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 12,
+          "score": 0.3572
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.3565
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "dpr-5",
+      "type": "single",
+      "question": "By how much does DPR outperform BM25 in top-20 passage retrieval accuracy?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.7394
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.6581
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.6431
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.6335
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 13,
+          "score": 0.6276
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.6205
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.6192
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.6161
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.6122
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.5898
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.02
+    },
+    {
+      "id": "dpr-6",
+      "type": "single",
+      "question": "What exact match score does single-dataset DPR get on Natural Questions?",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.5602
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 1,
+          "score": 0.5528
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.548
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.5291
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.5173
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 6,
+          "score": 0.5161
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.5043
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 13,
+          "score": 0.4899
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4834
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.4822
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.25
+      },
+      "latency_s": 0.02
+    },
+    {
+      "id": "fid-1",
+      "type": "single",
+      "question": "How does Fusion-in-Decoder process the retrieved passages?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.6849
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.6557
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5204
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5071
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.4704
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.4654
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.4609
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.439
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4328
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.4253
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "fid-2",
+      "type": "single",
+      "question": "Which pre-trained model is Fusion-in-Decoder initialized from?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.566
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.5518
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5227
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.487
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 4,
+          "score": 0.475
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.4689
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4688
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4649
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4609
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 12,
+          "score": 0.4552
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "fid-3",
+      "type": "single",
+      "question": "What exact match score does Fusion-in-Decoder (large) get on NaturalQuestions?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5808
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5788
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.5778
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.5431
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 1,
+          "score": 0.5027
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 13,
+          "score": 0.4894
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4879
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.4862
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4627
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 5,
+          "score": 0.4589
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "fid-4",
+      "type": "single",
+      "question": "How does Fusion-in-Decoder's performance change as the number of retrieved passages grows?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.676
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.6403
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.5459
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5202
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5076
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.5041
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.4857
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.4468
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.4465
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.4424
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "fid-5",
+      "type": "single",
+      "question": "How many passages does Fusion-in-Decoder retrieve for training and testing?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.6426
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.6161
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.5699
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5586
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 13,
+          "score": 0.4681
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4643
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4586
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.4552
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4494
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 13,
+          "score": 0.4476
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "fid-6",
+      "type": "single",
+      "question": "Which two retrieval methods does Fusion-in-Decoder consider for support passages?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.6757
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.6488
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5954
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 4,
+          "score": 0.5577
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.5496
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 11,
+          "score": 0.5194
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 2,
+          "score": 0.5094
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 4,
+          "score": 0.5027
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 13,
+          "score": 0.4794
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4763
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "selfrag-1",
+      "type": "single",
+      "question": "What are reflection tokens in Self-RAG?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.7823
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.559
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.5175
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.5099
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.5094
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 10,
+          "score": 0.5065
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.4866
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.484
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4775
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 20,
+          "score": 0.4732
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "selfrag-2",
+      "type": "single",
+      "question": "What are the four types of reflection tokens used in Self-RAG?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.7477
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.5304
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.5088
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.4849
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.4795
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 16,
+          "score": 0.4793
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 10,
+          "score": 0.4742
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.473
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.472
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4704
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "selfrag-3",
+      "type": "single",
+      "question": "Which base language model is used to initialize the Self-RAG critic?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.6025
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.6018
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.5972
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.571
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 6,
+          "score": 0.5553
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.544
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.5308
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.529
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.5235
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.5199
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 1.0,
+        "mrr": 0.16666666666666666
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "selfrag-4",
+      "type": "single",
+      "question": "How is the training data for the Self-RAG critic model created?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.6892
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 9,
+          "score": 0.6103
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.5775
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 6,
+          "score": 0.5763
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 10,
+          "score": 0.5617
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.5508
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.5465
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.5337
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 18,
+          "score": 0.5176
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.5014
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "selfrag-5",
+      "type": "single",
+      "question": "What retrieval threshold does Self-RAG use for most tasks?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 9,
+          "score": 0.6675
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.6072
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.5857
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 20,
+          "score": 0.5633
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 10,
+          "score": 0.5603
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.5464
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.5293
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 6,
+          "score": 0.5171
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 4,
+          "score": 0.5161
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 19,
+          "score": 0.5092
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "cross-1",
+      "type": "cross",
+      "question": "Compare the NaturalQuestions exact match scores of REALM, DPR and RAG.",
+      "retrieved": [
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 8,
+          "score": 0.468
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.4521
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 5,
+          "score": 0.4496
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.447
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 1,
+          "score": 0.4422
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.4362
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4319
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 12,
+          "score": 0.4298
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.4256
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 8,
+          "score": 0.4255
+        }
+      ],
+      "metrics": {
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 1.0,
+        "paper_cov@1": 0.3333333333333333,
+        "paper_cov@3": 0.6666666666666666,
+        "paper_cov@5": 0.6666666666666666,
+        "paper_cov@10": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "cross-2",
+      "type": "cross",
+      "question": "How do RAG and Fusion-in-Decoder differ in how they combine multiple retrieved passages?",
+      "retrieved": [
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.6293
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.6224
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 3,
+          "score": 0.5991
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5411
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.5365
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.5199
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5166
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.5071
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.4994
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.4833
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333,
+        "paper_cov@1": 0.5,
+        "paper_cov@3": 1.0,
+        "paper_cov@5": 1.0,
+        "paper_cov@10": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "cross-3",
+      "type": "cross",
+      "question": "How do REALM and RAG differ in whether the retriever needs special pre-training?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 8,
+          "score": 0.6133
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.5205
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.5112
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4972
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.4951
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 12,
+          "score": 0.4908
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.4853
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.4769
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.4734
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 7,
+          "score": 0.4672
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333,
+        "paper_cov@1": 0.5,
+        "paper_cov@3": 0.5,
+        "paper_cov@5": 0.5,
+        "paper_cov@10": 0.5
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "cross-4",
+      "type": "cross",
+      "question": "Which retriever do both RAG and Fusion-in-Decoder build on?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 4,
+          "score": 0.5507
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 2,
+          "score": 0.545
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5306
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 2,
+          "score": 0.5116
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 3,
+          "score": 0.5028
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.5019
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.5001
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 5,
+          "score": 0.4856
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4736
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4732
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr": 0.3333333333333333,
+        "paper_cov@1": 0.5,
+        "paper_cov@3": 0.5,
+        "paper_cov@5": 1.0,
+        "paper_cov@10": 1.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "none-1",
+      "type": "unanswerable",
+      "question": "What is the capital of France?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 26,
+          "score": 0.3043
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 1,
+          "score": 0.1825
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 11,
+          "score": 0.149
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.1352
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 21,
+          "score": 0.1336
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 20,
+          "score": 0.131
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.1288
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 25,
+          "score": 0.1288
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 23,
+          "score": 0.1288
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 16,
+          "score": 0.1277
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "none-2",
+      "type": "unanswerable",
+      "question": "Who won the 2022 FIFA World Cup?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 21,
+          "score": 0.2031
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 5,
+          "score": 0.1967
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 24,
+          "score": 0.1881
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.1819
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 3,
+          "score": 0.1649
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 24,
+          "score": 0.1614
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 24,
+          "score": 0.1603
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.1545
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 1,
+          "score": 0.1544
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 16,
+          "score": 0.154
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "none-3",
+      "type": "unanswerable",
+      "question": "How much GPU memory does GPT-4 need for inference?",
+      "retrieved": [
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 19,
+          "score": 0.5481
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.4709
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.4574
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 22,
+          "score": 0.4431
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 21,
+          "score": 0.4425
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.4231
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 13,
+          "score": 0.4117
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 5,
+          "score": 0.4042
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 5,
+          "score": 0.3916
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 16,
+          "score": 0.3915
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "none-4",
+      "type": "unanswerable",
+      "question": "How does RAG perform on image captioning benchmarks such as COCO?",
+      "retrieved": [
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 10,
+          "score": 0.4701
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 2,
+          "score": 0.4606
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 6,
+          "score": 0.4555
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 1,
+          "score": 0.4476
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 17,
+          "score": 0.4461
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 3,
+          "score": 0.442
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.4383
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 18,
+          "score": 0.4323
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 15,
+          "score": 0.4285
+        },
+        {
+          "source": "rag_lewis2020.pdf",
+          "page": 7,
+          "score": 0.4269
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    },
+    {
+      "id": "none-5",
+      "type": "unanswerable",
+      "question": "What learning rate schedule does ColBERT use?",
+      "retrieved": [
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.3478
+        },
+        {
+          "source": "realm_guu2020.pdf",
+          "page": 5,
+          "score": 0.3437
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 19,
+          "score": 0.3322
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 5,
+          "score": 0.331
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 15,
+          "score": 0.3276
+        },
+        {
+          "source": "fid_izacard2021.pdf",
+          "page": 5,
+          "score": 0.3274
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 9,
+          "score": 0.3258
+        },
+        {
+          "source": "dpr_karpukhin2020.pdf",
+          "page": 7,
+          "score": 0.3221
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 17,
+          "score": 0.3214
+        },
+        {
+          "source": "selfrag_asai2023.pdf",
+          "page": 15,
+          "score": 0.3092
+        }
+      ],
+      "metrics": {
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "mrr": 0.0
+      },
+      "latency_s": 0.01
+    }
+  ]
+}
