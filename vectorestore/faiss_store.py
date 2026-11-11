@@ -38,6 +38,28 @@ class FAISSStore:
         self.index.add(embeddings)
         self.metadata.extend(metadata)
 
+    def search_ids(self, query_embedding, top_k=5):
+        """
+        Like search(), but returns [(chunk_index, score), ...]
+        so results from different retrievers can be fused.
+        """
+
+        query_embedding = np.asarray(
+            query_embedding,
+            dtype="float32"
+        )
+
+        scores, indices = self.index.search(
+            query_embedding,
+            min(top_k, self.index.ntotal)
+        )
+
+        return [
+            (int(index), float(score))
+            for score, index in zip(scores[0], indices[0])
+            if index != -1
+        ]
+
     def search(self, query_embedding, top_k=5):
 
         query_embedding = np.asarray(
@@ -94,6 +116,7 @@ class FAISSStore:
         self.index = faiss.read_index(
             str(path / "index.faiss")
         )
+        self.dimension = self.index.d
 
         with open(
             path / "metadata.json",

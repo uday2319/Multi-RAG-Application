@@ -4,34 +4,32 @@ from configure import (
     VECTORSTORE_DIR
 )
 
-from ingestion.pdf_processor import (
-    read_text,
-    chunk_text
-)
+from ingestion.pdf_processor import chunk_pdf
 
 from embeddings.embedder import Embedder
 from vectorestore.faiss_store import FAISSStore
 
 
-# Text file
-text_path = PAPERS_DIR / "research.txt"
+# 1. Find PDFs
+pdf_paths = sorted(PAPERS_DIR.glob("*.pdf"))
+
+if not pdf_paths:
+    raise SystemExit(f"No PDFs found in {PAPERS_DIR}")
 
 
-# 1. Read text
-text = read_text(text_path)
+# 2. Read and chunk every PDF (each chunk keeps source + page)
+chunks = []
 
-print("Characters:", len(text))
+for pdf_path in pdf_paths:
 
+    pdf_chunks = chunk_pdf(pdf_path)
 
-# 2. Chunk text
-chunks = chunk_text(text)
+    print(f"{pdf_path.name}: {len(pdf_chunks)} chunks")
 
-# Add source metadata
-for chunk in chunks:
-    chunk["source"] = text_path.name
+    chunks.extend(pdf_chunks)
 
 
-print("Chunks:", len(chunks))
+print("Total chunks:", len(chunks))
 
 
 # 3. Create embeddings
@@ -48,9 +46,7 @@ print("Embeddings:", embeddings.shape)
 
 
 # 4. Create FAISS index
-dimension = embeddings.shape[1]
-
-store = FAISSStore(dimension)
+store = FAISSStore(embedder.dimension)
 
 store.add(
     embeddings,
