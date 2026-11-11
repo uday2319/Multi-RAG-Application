@@ -1,8 +1,10 @@
-import fitz
+import pymupdf
 from pathlib import Path
 
+from configure import FIGURES_DIR
 
-def extract_figures(pdf_path, output_dir="figures"):
+
+def extract_figures(pdf_path, output_dir=FIGURES_DIR):
     """
     Extract images/figures from a PDF and preserve page information.
     """
@@ -15,7 +17,7 @@ def extract_figures(pdf_path, output_dir="figures"):
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    document = fitz.open(str(pdf_path))
+    document = pymupdf.open(str(pdf_path))
 
     figures = []
 

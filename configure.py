@@ -27,3 +27,11 @@ CHUNK_OVERLAP = 50
 
 # Retrieval
 TOP_K = 3
+
+
+# LLM (Ollama)
+OLLAMA_URL = "http://localhost:11434/api/generate"
+LLM_MODEL = "phi3"
+LLM_MAX_TOKENS = 512
+LLM_TEMPERATURE = 0.1
+LLM_TIMEOUT = 180

@@ -1,4 +1,4 @@
 vectorestore/
 logs
 .vscode
-__pycache__/
+__pycache__

@@ -1,25 +1,33 @@
 import requests
 
+from configure import (
+    OLLAMA_URL,
+    LLM_MODEL,
+    LLM_MAX_TOKENS,
+    LLM_TEMPERATURE,
+    LLM_TIMEOUT
+)
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-LLM_MODEL = "phi3"
 
-
-def generate_answer(query, context_chunks):
+def build_context(context_chunks):
 
     context_parts = []
 
     for chunk in context_chunks:
 
-        context_parts.append(
-            f"""
-Source: {chunk["source"]}
+        source = chunk.get("source", "unknown")
+        page = chunk.get("page", "?")
 
-{chunk["content"]}
-"""
+        context_parts.append(
+            f"[{source}, p.{page}]\n{chunk['content']}"
         )
 
-    context = "\n".join(context_parts)
+    return "\n\n".join(context_parts)
+
+
+def generate_answer(query, context_chunks):
+
+    context = build_context(context_chunks)
 
     prompt = f"""
 You are a research paper question-answering assistant.
@@ -32,7 +40,7 @@ Rules:
 3. If the evidence does not contain the answer, say exactly:
 Answer not found in the paper.
 4. Give a concise and direct answer.
-5. When possible, mention the page number supporting the answer.
+5. Cite the evidence you used with its label, e.g. [rag_lewis2020.pdf, p.3].
 
 EVIDENCE:
 {context}
@@ -49,11 +57,12 @@ ANSWER:
             "model": LLM_MODEL,
             "prompt": prompt,
             "stream": False,
-             "options": {
-            "num_predict":100,
-            "temperature": 0.1}
+            "options": {
+                "num_predict": LLM_MAX_TOKENS,
+                "temperature": LLM_TEMPERATURE
+            }
         },
-        timeout=120
+        timeout=LLM_TIMEOUT
     )
 
     response.raise_for_status()

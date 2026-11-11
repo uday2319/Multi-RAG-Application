@@ -30,7 +30,7 @@ def create_rag():
 
     embedder = Embedder(EMBEDDING_MODEL)
 
-    store = FAISSStore(384)
+    store = FAISSStore(embedder.dimension)
     store.load(VECTORSTORE_DIR)
 
     logger.info(
@@ -98,8 +98,9 @@ def ask_question(request: QueryRequest):
             sources.append({
                 "source": result.get(
                     "source",
-                    "research.txt"
+                    "unknown"
                 ),
+                "page": result.get("page"),
                 "score": round(
                     result.get("score", 0),
                     4

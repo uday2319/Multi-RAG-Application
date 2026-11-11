@@ -94,6 +94,7 @@ class FAISSStore:
         self.index = faiss.read_index(
             str(path / "index.faiss")
         )
+        self.dimension = self.index.d
 
         with open(
             path / "metadata.json",

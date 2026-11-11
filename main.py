@@ -14,7 +14,7 @@ def create_rag():
 
     embedder = Embedder(EMBEDDING_MODEL)
 
-    store = FAISSStore(384)
+    store = FAISSStore(embedder.dimension)
     store.load(VECTORSTORE_DIR)
 
     retriever = Retriever(
@@ -63,8 +63,9 @@ def main():
         for result in results:
 
             print(
-                f"- {result.get('source', 'research.txt')} ",
-                f"score={result.get('score', 0):.3f})"
+                f"- {result.get('source', 'unknown')} "
+                f"p.{result.get('page', '?')} "
+                f"(score={result.get('score', 0):.3f})"
             )
 
 
