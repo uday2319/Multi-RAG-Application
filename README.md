@@ -1,568 +1,250 @@
-<<<<<<< HEAD
-#**MultiRAG**
+# MultiRAG
 
-A Retrieval-Augmented Generation (RAG) system for question answering over research paper content.
+**Ask questions about research papers. Get answers with the exact paper and page they came from.**
 
-The system retrieves relevant text chunks using semantic vector search and uses a local LLM through Ollama to generate answers based only on the retrieved evidence.
+MultiRAG is a Retrieval-Augmented Generation (RAG) system that runs fully on your own computer. It finds the relevant text in a set of PDF papers, lets a local LLM write an answer from that text only, and checks the answer before showing it. If the papers don't contain the answer, it says so instead of guessing.
 
----
+```text
+Ask: Which retriever do both RAG and Fusion-in-Decoder build on?
+Answer: RAG and Fusion-in-Decoder both build on DPR's retriever [fid_izacard2021.pdf, p.3].
 
-## Architecture
-
-User Question
-      |
-      v
-Query Embedding
-      |
-      v
-FAISS Vector Search
-      |
-      v
-Top-K Relevant Chunks
-      |
-      v
-Context Construction
-      |
-      v
-Ollama / Phi-3
-      |
-      v
-Answer
-
+Ask: Who won the 2022 FIFA World Cup?
+Answer: Answer not found in the papers.      (refused in under 1 second)
+```
 
 ---
 
 ## Features
 
-- Research paper question answering
-- Text chunking with configurable chunk size and overlap
-- Sentence Transformer embeddings
-- FAISS vector similarity search
-- Top-K retrieval
-- Local LLM inference using Ollama
-- Evidence-based answer generation
-- FastAPI REST API
-- Swagger/OpenAPI documentation
-- Source metadata
-- Request latency measurement
-- Logging
-- Modular project structure
-
+- **Questions across many papers** – ask about one paper or compare several.
+- **Page-level citations** – every answer points to `[file.pdf, p.N]`.
+- **Hybrid search** – meaning-based search (FAISS) plus exact-word search (BM25).
+- **Reranker** – a second model re-sorts the results so the best evidence reaches the LLM.
+- **Paper routing** – "Compare REALM and RAG" searches inside both papers.
+- **Hallucination guard** – refuses when the evidence is weak and removes answer sentences the papers don't support.
+- **Built-in evaluation** – 38 labelled test questions; every change was measured.
+- **Fully local** – no API keys. Ollama runs the LLM; all models run on CPU.
 
 ---
 
-## Tech Stack
+## Results
 
-### Programming
-- Python
+Tested on 38 hand-written questions over 5 papers: 29 about one paper, 4 comparing papers, and 5 that the papers can't answer (the right response is to refuse).
 
-### Retrieval
-- Sentence Transformers
-- FAISS
-- Dense Vector Search
+| Metric | Before | After |
+|---|---|---|
+| Correct page ranked first | 33% | **52%** |
+| Correct page in the top 3 (what the LLM reads) | 70% | **82%** |
+| Comparison questions: every named paper found | 79% | **100%** |
+| Fully correct answers | 36% | **55%** |
+| Answers citing the correct page | 52% | **62%** |
+| Made-up answers to unanswerable questions | 40% | **20%** |
 
-### LLM
-- Ollama
-- Phi-3
+The hallucination guard removed **0 correct answers**, blocked **6 wrong answers** (invented numbers or model names), and blocked **2 made-up answers** to unanswerable questions.
 
-### API
-- FastAPI
-- Uvicorn
-- Pydantic
+<details>
+<summary>What each improvement added (retrieval)</summary>
 
-### Development
-- Git
-- GitHub
-
-
----
-
-## Project Structure
-
-MultiRAG/
-|
-├── data/
-│   └── papers/
-│       └── research.txt
-|
-├── ingestion/
-│   ├── pdf_processor.py
-│   ├── text_processor.py
-│   └── figure_processor.py
-|
-├── embeddings/
-│   └── embedder.py
-|
-├── vectorestore/
-│   └── faiss_store.py
-|
-├── retrival/
-│   └── retreiver.py
-|
-├── LLM/
-│   └── generator.py
-|
-├── logs/
-│   └── logger_config.py
-|
-├── vectorstore/
-│   ├── index.faiss
-│   └── metadata.json
-|
-├── configure.py
-├── build_index.py
-├── main.py
-├── my_api.py
-├── test_text.py
-├── test_retrieval.py
-├── test_llm.py
-├── test_ollama.py
-├── requirements.txt
-├── .gitignore
-└── README.md
-
-
----
-
-## How It Works
-
-### 1. Document Processing
-
-The research paper is converted into text and stored as:
-
-data/papers/research.txt
-
-The text is divided into smaller overlapping chunks.
-
-Current configuration:
-
-CHUNK_SIZE = 500
-CHUNK_OVERLAP = 50
-
-
-### 2. Embedding Generation
-
-Each text chunk is converted into a numerical vector using:
-
-sentence-transformers/all-MiniLM-L6-v2
-
-The model produces 384-dimensional embeddings.
-
-Example:
-
-161 chunks
-    |
-    v
-161 x 384 embeddings
-
-
-### 3. FAISS Vector Store
-
-The generated embeddings are stored in a FAISS index.
-
-Document chunks
-      |
-      v
-Embeddings
-      |
-      v
-FAISS
-
-
-FAISS performs similarity search to find chunks that are semantically relevant to a user's question.
-
-
-### 4. Retrieval
-
-When a user asks a question, the question is converted into a 384-dimensional embedding.
-
-FAISS searches the vector index and returns the most relevant chunks.
-
-Current configuration:
-
-TOP_K = 3
-
-
-### 5. Answer Generation
-
-The retrieved chunks are added to the LLM prompt.
-
-The LLM is instructed to:
-
-- Use only the provided evidence
-- Avoid outside knowledge
-- Avoid inventing facts
-- Give concise answers
-- State when the answer is not available in the retrieved evidence
-
-The answer is generated locally using:
-
-Ollama + Phi-3
-
-
----
-
-## Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone <https://github.com/uday2319/Multi_RAG>
-cd MultiRAG
-=======
-# 📚 MultiRAG — A Verifiable Research-Paper Assistant
-
-Ask questions across multiple research papers and get answers **cited to the exact paper and page** — with a hallucination guard that refuses instead of guessing, and an evaluation harness that measures every design decision.
-
-Runs fully locally: FAISS + BM25 retrieval, a cross-encoder reranker, and a local LLM via [Ollama](https://ollama.com).
-
-```text
-Ask: Which retriever do both RAG and Fusion-in-Decoder build on?
-
-Answer: RAG and Fusion-in-Decoder both build on DPR's retriever [fid_izacard2021.pdf, p.3].
-
-Ask: Who won the 2022 FIFA World Cup?
-
-Answer: Answer not found in the papers.
-[guard: weak_evidence]   ← refused in <1 s, the LLM was never called
-```
-
----
-
-## ✨ Highlights
-
-| | |
-|---|---|
-| 📄 **Multi-paper Q&A** | Index any folder of PDFs; ask about one paper or compare several |
-| 📍 **Page-level citations** | Every answer cites `[file.pdf, p.N]`; every chunk keeps its source and page |
-| 🔎 **Hybrid retrieval** | Dense (FAISS) + keyword (BM25), merged with Reciprocal Rank Fusion |
-| 🎯 **Cross-encoder reranking** | Re-scores candidates so the best evidence reaches the LLM |
-| 🧭 **Paper-aware routing** | "Compare REALM and RAG" searches *inside each named paper* |
-| 🛡️ **Hallucination guard** | Refuses on weak evidence; removes answer sentences whose words or numbers aren't in the evidence |
-| 📊 **Evaluation harness** | 38 labelled questions; retrieval *and* answer metrics; every change measured |
-| 🏠 **Fully local** | No API keys — Ollama for generation, Hugging Face models on CPU |
-
----
-
-## 📈 Results
-
-Measured on a hand-labelled set of **38 questions** over 5 papers (80 pages): 29 single-paper, 4 cross-paper, and 5 *unanswerable* questions where the correct behaviour is to refuse. Every gold answer is labelled with the page that supports it.
-
-### Baseline → final system
-
-| Metric | Baseline | Final | |
+| Setup | Hit@1 | Hit@3 | MRR |
 |---|---|---|---|
-| Right page ranked **#1** (Hit@1) | 0.33 | **0.52** | ▲ |
-| Right page in the **top 3** sent to the LLM (Hit@3) | 0.70 | **0.82** | ▲ |
-| All named papers present in top 3 (cross-paper) | 0.79 | **1.00** | ▲ |
-| **Fully correct answers** | 0.36 | **0.55** | ▲ +50% |
-| Cross-paper answers correct | 0.25 | **0.50** | ▲ |
-| Citations pointing to the gold page | 0.52 | **0.62** | ▲ |
-| **Hallucinated answers on unanswerable questions** | 0.40 | **0.20** | ▼ halved |
+| Baseline: plain PDF text, meaning search only | 0.333 | 0.697 | 0.509 |
+| + layout-aware PDF reading | 0.333 | 0.727 | 0.523 |
+| + reranker | 0.545 | 0.758 | 0.665 |
+| + BM25 hybrid search (no reranker) | 0.485 | 0.758 | 0.647 |
+| + hybrid search **and** reranker | 0.576 | 0.788 | 0.678 |
+| + paper routing (final) | 0.515 | 0.818 | 0.662 |
 
-> **Baseline:** plain PyMuPDF text, fixed 500-char chunks, dense-only top-3 retrieval, raw prompt to phi3.
+Hit@k = how often the correct page is in the top k results. MRR = average of 1 / (rank of the first correct result). Paragraph-based chunking was also tested and gave no gain, so the simpler fixed-size chunking is used.
 
-### Ablation — what each component contributed (retrieval)
-
-| Configuration | Hit@1 | Hit@3 | MRR |
-|---|---|---|---|
-| Baseline (plain text extraction, dense) | 0.333 | 0.697 | 0.509 |
-| + layout-aware extraction | 0.333 | 0.727 | 0.523 |
-| + cross-encoder reranker | 0.545 | 0.758 | 0.665 |
-| + hybrid BM25 (no reranker) | 0.485 | 0.758 | 0.647 |
-| + hybrid **and** reranker | **0.576** | 0.788 | **0.678** |
-| + paper routing (final) | 0.515 | **0.818** | 0.662 |
-
-Paper routing trades a little Hit@1 (it interleaves papers instead of trusting a single ranking) for **100 % cross-paper coverage**. Paragraph-based chunking was also tested and showed **no gain**, so it is off by default.
-
-### Hallucination guard — effect on the same LLM answers
-
-| | Count |
-|---|---|
-| Correct answers wrongly removed | **0** |
-| Wrong answers (invented numbers / models) blocked | **6** |
-| Hallucinations on unanswerable questions blocked | **2** |
-
-Examples the guard caught: *"Paris"* (cited to a page that only contains the question *"What is the capital of France?"*), *"DPR achieves 84.5 %"* (paper says 78.4 %), *"FiD is initialized from BERT"* (it's T5).
+</details>
 
 ---
 
-## 🏗️ Architecture
+## How it works
 
 ```mermaid
 flowchart TD
-    subgraph Indexing["Indexing (build_index.py)"]
-        A[PDFs in data/papers] --> B["Layout-aware extraction<br/>pymupdf4llm: columns + tables"]
-        B --> C["Chunking per page<br/>source + page kept"]
-        C --> D[MiniLM embeddings]
-        D --> E[(FAISS index)]
-        C --> F[(BM25 index)]
+    subgraph Index["1. Indexing (once)"]
+        A[PDF papers] --> B[Layout-aware text extraction]
+        B --> C[Chunks of 500 characters<br/>with paper + page]
+        C --> D[Embeddings + FAISS index]
+        C --> E[BM25 keyword index]
     end
 
-    subgraph Query["Answering (main.py / my_api.py)"]
-        Q[Question] --> R{"Names papers?<br/>paper router"}
-        R -->|yes| S1[Search inside each named paper]
-        R -->|no| S2[Search whole corpus]
-        S1 --> H
-        S2 --> H["Hybrid retrieval<br/>dense + BM25 → RRF, top 30"]
+    subgraph Answer["2. Answering (every question)"]
+        Q[Question] --> R[Paper router]
+        R --> H[Hybrid search: FAISS + BM25<br/>merged with RRF, top 30]
+        D -.-> H
         E -.-> H
-        F -.-> H
-        H --> RR["Cross-encoder reranker<br/>→ top 3"]
-        RR --> G1{"Guard 1<br/>evidence strong enough?"}
+        H --> RR[Reranker: best 3]
+        RR --> G1{Guard 1:<br/>evidence strong enough?}
         G1 -->|no| NF[Answer not found]
-        G1 -->|yes| L["LLM (phi3 via Ollama)<br/>numbered evidence [1][2][3]"]
-        L --> G2{"Guard 2<br/>each sentence supported?"}
-        G2 -->|none supported| NF
-        G2 -->|supported| ANS["Answer + [file.pdf, p.N] citations"]
+        G1 -->|yes| L[LLM writes answer<br/>with citations]
+        L --> G2{Guard 2:<br/>every sentence supported?}
+        G2 -->|no| NF
+        G2 -->|yes| ANS[Answer + page citations]
     end
 ```
 
-### How each stage works
-
-<details>
-<summary><b>1. Layout-aware PDF extraction</b></summary>
-
-Research papers are two-column. Naive extraction reads straight across the page and interleaves both columns, which garbles tables — the baseline LLM reported *"75.0 / 55.0"* for a table that says *78.4 / 59.1*. [`pymupdf4llm`](https://pypi.org/project/pymupdf4llm/) reads columns in order and converts tables to markdown, so numbers stay in their rows. Text drawn inside figures is dropped. See [`ingestion/pdf_processor.py`](ingestion/pdf_processor.py).
-</details>
-
-<details>
-<summary><b>2. Hybrid retrieval with Reciprocal Rank Fusion</b></summary>
-
-Dense embeddings capture *meaning* but are weak on exact terms like `RAG-Token`, `FAISS` or `ISREL`. BM25 matches *exact words*. Each returns its top 30; Reciprocal Rank Fusion scores each chunk as `Σ 1 / (60 + rank)` across both lists, so chunks both retrievers agree on rise to the top. See [`retrival/retreiver.py`](retrival/retreiver.py).
-</details>
-
-<details>
-<summary><b>3. Cross-encoder reranking</b></summary>
-
-The first stage compares separately-computed vectors — fast but approximate. The reranker ([`cross-encoder/ms-marco-MiniLM-L-6-v2`](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)) reads the question and each candidate **together** and re-scores all 30. Retrieval gives recall; reranking gives precision. On CPU it adds well under a second.
-</details>
-
-<details>
-<summary><b>4. Paper-aware routing</b></summary>
-
-For *"How do RAG and Fusion-in-Decoder differ?"*, plain top-3 retrieval often returns three chunks from one paper. The router detects paper names using aliases in [`data/papers/papers.json`](data/papers/papers.json) (longest alias first, so *Self-RAG* is not mistaken for *RAG*), searches inside each named paper, and interleaves the results. See [`retrival/paper_router.py`](retrival/paper_router.py).
-</details>
-
-<details>
-<summary><b>5. Grounded generation</b></summary>
-
-Evidence is passed as numbered passages `[1] [2] [3]` via the Ollama chat API with a system prompt. Small models copy a short number far more reliably than a file name; the numbers are mapped back to `[file.pdf, p.N]` afterwards. Stop sequences prevent the model from inventing a follow-up prompt. See [`LLM/generator.py`](LLM/generator.py).
-</details>
-
-<details>
-<summary><b>6. Two-step hallucination guard</b></summary>
-
-- **Evidence gate (before the LLM):** if the best reranker score is below `-2.0`, refuse immediately. Answerable questions in the eval set scored ≥ −0.83; off-topic ones ≤ −2.84.
-- **Answer check (after the LLM):** each answer sentence is checked against the retrieved evidence. The words it adds *beyond the question* must mostly appear in the evidence, and **every number** must appear verbatim. Unsupported sentences are removed; if none remain, the answer becomes a refusal.
-
-See [`LLM/guard.py`](LLM/guard.py).
-</details>
+1. **Reading PDFs** – research papers have two columns. `pymupdf4llm` reads them in the right order and keeps tables intact, so numbers aren't scrambled.
+2. **Chunking** – each page is cut into 500-character pieces that remember their paper and page number.
+3. **Hybrid search** – FAISS finds chunks with similar *meaning*; BM25 finds chunks with the same *exact words* (names, numbers). Reciprocal Rank Fusion merges both lists.
+4. **Reranking** – a cross-encoder reads the question and each of the top 30 chunks together and picks the best 3.
+5. **Paper routing** – if the question names papers, it searches inside each one, so comparisons always see every paper.
+6. **Answer writing** – phi3 (via Ollama) answers using only the 3 chunks and cites them as [1], [2], [3]; these are turned into `[file.pdf, p.N]`.
+7. **Hallucination guard** –
+   - *before the LLM:* if even the best chunk matches poorly (reranker score below -2.0), refuse straight away;
+   - *after the LLM:* every sentence's key words and every number must appear in the evidence, otherwise the sentence is removed.
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
-### Prerequisites
-- Python 3.11
-- [Ollama](https://ollama.com) with a model pulled: `ollama pull phi3`
-
-### Install
+**Requirements:** Python 3.11 and [Ollama](https://ollama.com).
 
 ```bash
+# 1. Get the code
 git clone https://github.com/uday2319/Multi_RAG.git
 cd Multi_RAG
 
+# 2. Install
 conda create -n rag_env python=3.11 -y
 conda activate rag_env
 pip install -r requirements.txt
-```
 
-### Build the index
+# 3. Download the LLM
+ollama pull phi3
 
-```bash
+# 4. Build the search index (about 1 minute)
 python build_index.py
 ```
 
-```text
-dpr_karpukhin2020.pdf: 134 chunks
-fid_izacard2021.pdf: 53 chunks
-rag_lewis2020.pdf: 164 chunks
-realm_guu2020.pdf: 115 chunks
-selfrag_asai2023.pdf: 255 chunks
-Total chunks: 721
-Vector store created successfully.
-```
+The embedding model and reranker (about 100 MB) download automatically on first run.
 
-The embedding model and reranker (~100 MB) download from Hugging Face on first run.
+### Ask questions in the terminal
 
-### Ask questions
-
-**Command line**
 ```bash
 python main.py
 ```
 
-**REST API**
+### Or run the web API
+
 ```bash
 uvicorn my_api:app --reload
 ```
-Open **http://127.0.0.1:8000/docs** for the interactive UI, or:
+
+Open **http://127.0.0.1:8000/docs** to try it in the browser, or call it directly:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/ask \
      -H "Content-Type: application/json" \
-     -d '{"question": "Who won the 2022 FIFA World Cup?"}'
+     -d '{"question": "What are reflection tokens in Self-RAG?"}'
 ```
 
-```json
-{
-  "question": "Who won the 2022 FIFA World Cup?",
-  "answer": "Answer not found in the papers.",
-  "sources": [
-    {"source": "selfrag_asai2023.pdf", "page": 24, "score": -4.522},
-    {"source": "selfrag_asai2023.pdf", "page": 24, "score": -4.7724},
-    {"source": "selfrag_asai2023.pdf", "page": 14, "score": -5.237}
-  ],
-  "guard": {"refused": true, "reason": "weak_evidence", "best_rerank_score": -4.52},
-  "latency_seconds": 0.96
-}
-```
-
-`score` is the reranker score of each source; `guard.reason` is `ok`, `removed_sentences`, `unsupported_answer`, `model_refused` or `weak_evidence`.
+The response contains `answer`, `sources` (paper, page, score) and `guard` (whether it refused, and why).
 
 ### Use your own papers
-1. Drop PDFs into `data/papers/`.
-2. *(Optional)* add their names and nicknames to `data/papers/papers.json` to enable paper routing.
-3. Re-run `python build_index.py`.
+
+1. Put PDF files in `data/papers/`.
+2. Optional: add their names and nicknames to `data/papers/papers.json` to enable paper routing.
+3. Run `python build_index.py` again.
 
 ---
 
-## 📊 Evaluation
+## Evaluation
 
 ```bash
-# Full run: retrieval + LLM + guard (~12 min with phi3 on CPU)
+# Full test: search + LLM + guard (about 12 minutes on CPU)
 python eval/run_eval.py --label my_run
 
-# Retrieval only (~1 min)
+# Search only, no LLM (about 1 minute)
 python eval/run_eval.py --label my_run --retrieval-only
 
-# Ablations
-python eval/run_eval.py --label dense  --retrieval-only --mode dense --no-rerank
-python eval/run_eval.py --label hybrid --retrieval-only --mode hybrid --no-rerank
-python eval/run_eval.py --label nort   --retrieval-only --routing off
-
-# Re-score saved answers without calling the LLM again
-python eval/run_eval.py --rescore eval/results/<file>.json   # after editing golden_set.json
-python eval/run_eval.py --reguard eval/results/<file>.json   # after changing the guard
+# Compare setups
+python eval/run_eval.py --label dense --retrieval-only --mode dense --no-rerank
+python eval/run_eval.py --label no_routing --retrieval-only --routing off
 ```
 
-**Metrics**
-
-| Retrieval | Answers |
-|---|---|
-| `hit@k` — a gold (paper, page) is in the top k | `answer_correct` — all required facts present |
-| `mrr` — 1 / rank of the first gold page | `citation_gold` — citations pointing to a gold page |
-| `cross_paper_cov@k` — share of named papers in top k | `hallucination_rate_unanswerable` — answered when it should refuse |
-| | `false_refusal_rate` — refused an answerable question |
-
-Each run scores the **raw LLM answer and the guarded answer from the same generation**, so the guard's effect is isolated. All runs are saved to [`eval/results/`](eval/results/) and the questions live in [`eval/golden_set.json`](eval/golden_set.json).
+- Test questions: [`eval/golden_set.json`](eval/golden_set.json)
+- Saved results: [`eval/results/`](eval/results/)
+- Each run scores the LLM's answer **before and after** the guard, so the guard's effect is measured separately.
+- `--rescore <file>` and `--reguard <file>` re-check saved answers without calling the LLM again.
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
-Everything is in [`configure.py`](configure.py):
+All settings are in [`configure.py`](configure.py).
 
-| Setting | Default | Description |
+| Setting | Default | What it does |
 |---|---|---|
-| `PDF_EXTRACTOR` | `"markdown"` | `"markdown"` (layout-aware) or `"text"` (plain) |
-| `CHUNKING` / `CHUNK_SIZE` | `"fixed"` / `500` | `"fixed"` or `"paragraph"` chunking |
-| `RETRIEVAL_MODE` | `"hybrid"` | `"dense"` or `"hybrid"` (dense + BM25) |
-| `CANDIDATES` | `30` | Candidates per retriever before fusion / reranking |
-| `RERANKER_MODEL` | `ms-marco-MiniLM-L-6-v2` | `None` disables reranking |
+| `RETRIEVAL_MODE` | `"hybrid"` | `"dense"` (meaning only) or `"hybrid"` (meaning + words) |
+| `RERANKER_MODEL` | `ms-marco-MiniLM-L-6-v2` | Set to `None` to turn the reranker off |
 | `PAPER_ROUTING` | `"all"` | `"off"`, `"multi"` (2+ papers named) or `"all"` |
-| `TOP_K` | `3` | Chunks given to the LLM |
-| `LLM_MODEL` | `"phi3"` | Any Ollama model |
-| `GUARD_ENABLED` | `True` | Turn the hallucination guard on / off |
-| `GUARD_MIN_RERANK_SCORE` | `-2.0` | Evidence-gate threshold |
-| `GUARD_MIN_SUPPORT` | `0.5` | Share of a sentence's new words that must be in the evidence |
-
-Re-run `build_index.py` after changing PDFs, `PDF_EXTRACTOR` or chunking settings.
+| `TOP_K` | `3` | How many chunks the LLM reads |
+| `LLM_MODEL` | `"phi3"` | Any model installed in Ollama |
+| `GUARD_ENABLED` | `True` | Turn the hallucination guard on or off |
+| `GUARD_MIN_RERANK_SCORE` | `-2.0` | Below this, refuse without calling the LLM |
+| `CHUNK_SIZE` | `500` | Characters per chunk (re-run `build_index.py` after changing) |
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```text
 Multi_RAG/
-├── configure.py              # all settings
-├── build_index.py            # PDFs → chunks → embeddings → FAISS
-├── main.py                   # create_rag(), answer_question(), CLI
-├── my_api.py                 # FastAPI service (POST /ask)
+├── configure.py            # all settings
+├── build_index.py          # PDFs -> chunks -> embeddings -> index
+├── main.py                 # the full pipeline + terminal chat
+├── my_api.py               # FastAPI web service (POST /ask)
 ├── ingestion/
-│   ├── pdf_processor.py      # layout-aware extraction + chunking
-│   └── figure_processor.py   # figure image extraction
-├── embeddings/embedder.py    # sentence-transformers wrapper
-├── vectorestore/faiss_store.py
+│   ├── pdf_processor.py    # PDF reading and chunking
+│   └── figure_processor.py # figure image extraction
+├── embeddings/
+│   └── embedder.py         # sentence-transformers model
+├── vectorestore/
+│   └── faiss_store.py      # FAISS index: save, load, search
 ├── retrival/
-│   ├── retreiver.py          # hybrid search, RRF, reranker, routing
-│   └── paper_router.py       # detects paper names in questions
+│   ├── retreiver.py        # hybrid search, fusion, reranker
+│   └── paper_router.py     # finds paper names in questions
 ├── LLM/
-│   ├── generator.py          # prompt, Ollama call, citation mapping
-│   └── guard.py              # hallucination guard
+│   ├── generator.py        # prompt and Ollama call
+│   └── guard.py            # hallucination guard
 ├── eval/
-│   ├── golden_set.json       # 38 labelled questions
-│   ├── run_eval.py           # metrics, ablations, rescore / reguard
-│   └── results/              # every evaluation run
-└── data/
-    ├── papers/               # PDFs + papers.json catalog
-    └── figures/
+│   ├── golden_set.json     # 38 test questions
+│   ├── run_eval.py         # evaluation script
+│   └── results/            # saved test runs
+├── data/papers/            # PDFs + papers.json
+├── test_pdf.py             # quick check: PDF reading
+└── test_figures.py         # quick check: figure extraction
 ```
 
-### Included papers
+**Papers included:**
+[REALM](https://arxiv.org/abs/2002.08909) (2020),
+[DPR](https://arxiv.org/abs/2004.04906) (2020),
+[RAG](https://arxiv.org/abs/2005.11401) (2020),
+[Fusion-in-Decoder](https://arxiv.org/abs/2007.01282) (2021),
+[Self-RAG](https://arxiv.org/abs/2310.11511) (2023).
 
-| Paper | Year |
-|---|---|
-| [REALM: Retrieval-Augmented Language Model Pre-Training](https://arxiv.org/abs/2002.08909) | 2020 |
-| [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906) | 2020 |
-| [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) | 2020 |
-| [Leveraging Passage Retrieval with Generative Models (Fusion-in-Decoder)](https://arxiv.org/abs/2007.01282) | 2021 |
-| [Self-RAG: Learning to Retrieve, Generate, and Critique](https://arxiv.org/abs/2310.11511) | 2023 |
-
-Five generations of retrieval-augmented models — so cross-paper questions have real answers.
+**Tech stack:** Python · PyMuPDF / pymupdf4llm · sentence-transformers · FAISS · rank-bm25 · cross-encoder reranker · Ollama (phi3) · FastAPI
 
 ---
 
-## 🧪 Tech stack
+## Limitations
 
-**Retrieval:** FAISS · sentence-transformers (`all-MiniLM-L6-v2`) · rank-bm25 · cross-encoder reranker
-**Ingestion:** PyMuPDF · pymupdf4llm
-**Generation:** Ollama (phi3, swappable)
-**Serving:** FastAPI · Uvicorn
+- **The small LLM is now the weakest part.** In about 10 test questions the right page was found, but phi3 still answered wrongly.
+- **The guard checks words, not meaning.** It can't catch a real number attached to the wrong thing (for example, a GPU size from one paper claimed for a different model).
+- **The test set is small.** 38 questions, and the guard threshold was chosen on the same questions, so the numbers are a guide rather than exact.
+- **Routing trusts the paper name.** If a question names one paper but the answer is in another, it searches the wrong paper.
 
----
+## Next steps
 
-## ⚠️ Limitations
-
-Reported honestly, because they point to the next steps:
-
-- **The small LLM is the main bottleneck.** In about 10 questions, the right page was retrieved but phi3 still answered wrongly.
-- **The guard checks words, not meaning.** *"GPT-4 needs 24GB"* passes because "24GB" is in the evidence — it's actually Self-RAG's GPU memory. Catching misattributed facts needs an NLI (entailment) model.
-- **Small, single-split evaluation.** The guard threshold was chosen on the same 38 questions it is scored on, and only 5 are unanswerable — the rates are indicative, not precise.
-- **Routing assumes the named paper holds the answer.** A question that names one paper but is answered in another will be routed to the wrong place.
-
-## 🗺️ Roadmap
-
-- [ ] NLI-based sentence verification to catch misattributed facts
-- [ ] Larger held-out evaluation set (incl. more unanswerable and cross-paper questions)
-- [ ] Benchmark stronger local LLMs (Llama 3.1, Qwen 2.5) against phi3
-- [ ] Figure and table retrieval — return the figure image with the answer
+- [ ] Add an NLI model to check whether the evidence really supports each sentence
+- [ ] Grow the test set, with a separate held-out part
+- [ ] Compare stronger local LLMs (Llama 3.1, Qwen 2.5) with phi3
+- [ ] Return figures and tables with the answer
 - [ ] Web UI that opens the PDF at the cited page
-- [ ] Docker image
 
 ---
 
-## 🙏 Acknowledgements
-
-The indexed papers belong to their authors and are included from arXiv for research and demonstration purposes.
->>>>>>> multi-paper-rag
+The included papers belong to their authors and are used from arXiv for research and demonstration purposes.
