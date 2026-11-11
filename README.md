@@ -124,36 +124,6 @@ python build_index.py
 
 The embedding model and reranker (about 100 MB) download automatically on first run.
 
-### Ask questions in the terminal
-
-```bash
-python main.py
-```
-
-### Or run the web API
-
-```bash
-uvicorn my_api:app --reload
-```
-
-Open **http://127.0.0.1:8000/docs** to try it in the browser, or call it directly:
-
-```bash
-curl -X POST http://127.0.0.1:8000/ask \
-     -H "Content-Type: application/json" \
-     -d '{"question": "What are reflection tokens in Self-RAG?"}'
-```
-
-The response contains `answer`, `sources` (paper, page, score) and `guard` (whether it refused, and why).
-
-### Use your own papers
-
-1. Put PDF files in `data/papers/`.
-2. Optional: add their names and nicknames to `data/papers/papers.json` to enable paper routing.
-3. Run `python build_index.py` again.
-
----
-
 ## Evaluation
 
 ```bash
@@ -166,14 +136,7 @@ python eval/run_eval.py --label my_run --retrieval-only
 # Compare setups
 python eval/run_eval.py --label dense --retrieval-only --mode dense --no-rerank
 python eval/run_eval.py --label no_routing --retrieval-only --routing off
-```
-
-- Test questions: [`eval/golden_set.json`](eval/golden_set.json)
-- Saved results: [`eval/results/`](eval/results/)
-- Each run scores the LLM's answer **before and after** the guard, so the guard's effect is measured separately.
-- `--rescore <file>` and `--reguard <file>` re-check saved answers without calling the LLM again.
-
----
+``` 
 
 ## Configuration
 
@@ -230,24 +193,6 @@ Multi_RAG/
 [Self-RAG](https://arxiv.org/abs/2310.11511) (2023).
 
 **Tech stack:** Python · PyMuPDF / pymupdf4llm · sentence-transformers · FAISS · rank-bm25 · cross-encoder reranker · Ollama (phi3) · FastAPI
-
----
-
-## Limitations
-
-- **The small LLM is now the weakest part.** In about 10 test questions the right page was found, but phi3 still answered wrongly.
-- **The guard checks words, not meaning.** It can't catch a real number attached to the wrong thing (for example, a GPU size from one paper claimed for a different model).
-- **The test set is small.** 38 questions, and the guard threshold was chosen on the same questions, so the numbers are a guide rather than exact.
-- **Routing trusts the paper name.** If a question names one paper but the answer is in another, it searches the wrong paper.
-
-## Next steps
-
-- [ ] Add an NLI model to check whether the evidence really supports each sentence
-- [ ] Grow the test set, with a separate held-out part
-- [ ] Compare stronger local LLMs (Llama 3.1, Qwen 2.5) with phi3
-- [ ] Return figures and tables with the answer
-- [ ] Web UI that opens the PDF at the cited page
-
 ---
 
 The included papers belong to their authors and are used from arXiv for research and demonstration purposes.
